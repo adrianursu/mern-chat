@@ -20,6 +20,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import NotificationBadge, { Effect } from "react-notification-badge";
 
 import axios from "axios";
 import { ChatState } from "../../Context/ChatProvider";
@@ -28,6 +29,7 @@ import ProfileModal from "./ProfileModal";
 import { useHistory } from "react-router-dom";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
+import { getSender } from "../../config/ChatLogics";
 
 function Sidebar() {
   const [search, setSearch] = useState("");
@@ -39,7 +41,14 @@ function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const { user, setSelectedChat, chats, setChats } = ChatState();
+  const {
+    user,
+    setSelectedChat,
+    chats,
+    setChats,
+    notification,
+    setNotification,
+  } = ChatState();
 
   function logoutHandler() {
     localStorage.removeItem("userInfo");
@@ -146,9 +155,35 @@ function Sidebar() {
         <div>
           <Menu>
             <MenuButton p="1">
+              <NotificationBadge
+                count={notification.length}
+                effect={Effect.SCALE}
+              />
               <BellIcon fontSize="2xl" margin="1" />
             </MenuButton>
-            {/* <MenuList></MenuList> */}
+            <MenuList>
+              {!notification.length && (
+                <Box d="flex" justifyContent="center">
+                  0 Notifications
+                </Box>
+              )}
+
+              {notification.map((n) => (
+                <MenuItem
+                  key={n._id}
+                  onClick={() => {
+                    setSelectedChat(n.chat);
+                    setNotification(
+                      notification.filter((notif) => notif !== n)
+                    );
+                  }}
+                >
+                  {n._id.chat.isGroupChat
+                    ? `New Message in ${n.chat.chatName}`
+                    : `New Message from ${getSender(user, n.chat.users)}`}
+                </MenuItem>
+              ))}
+            </MenuList>
           </Menu>
 
           <Menu>
