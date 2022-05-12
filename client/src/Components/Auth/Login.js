@@ -91,7 +91,7 @@ function Login() {
     <>
       <VStack spacing="5px">
         <FormControl id="email" isRequired>
-          <FormLabel>E-mail</FormLabel>
+          <FormLabel color="gray.300">E-mail</FormLabel>
           <Input
             value={userData.email}
             placeholder="Enter your email"
@@ -102,7 +102,7 @@ function Login() {
         </FormControl>
 
         <FormControl id="password" isRequired>
-          <FormLabel>Password</FormLabel>
+          <FormLabel color="gray.300">Password</FormLabel>
           <InputGroup>
             <Input
               value={userData.password}
