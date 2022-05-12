@@ -35,17 +35,40 @@ function Homepage() {
         m="40px 0 15px 0"
         borderRadius="lg"
         borderWidth="1px"
-        bg={"white"}
+        style={{
+          backdropFilter: "blur(16px) saturate(180%)",
+          WebkitBackdropFilter: "blur(16px) saturate(180%)",
+          backgroundColor: "rgba(17, 25, 40, 0.37)",
+          borderRadius: "12px",
+          border: "1px solid rgba(255, 255, 255, 0.125)",
+        }}
       >
-        <Text fontSize="4xl" fontFamily="Inconsolata">
+        <Text fontSize="4xl" fontFamily="Inconsolata" color="white">
           Bachelor App
         </Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px">
+      <Box
+        bg="white"
+        w="100%"
+        p={4}
+        borderRadius="lg"
+        borderWidth="1px"
+        style={{
+          backdropFilter: "blur(16px) saturate(180%)",
+          WebkitBackdropFilter: "blur(16px) saturate(180%)",
+          backgroundColor: "rgba(17, 25, 40, 0.37)",
+          borderRadius: "12px",
+          border: "1px solid rgba(255, 255, 255, 0.125)",
+        }}
+      >
         <Tabs variant="soft-rounded">
           <TabList mb="1em">
-            <Tab width="50%">Login</Tab>
-            <Tab width="50%">Register</Tab>
+            <Tab width="50%" color="gray.300">
+              Login
+            </Tab>
+            <Tab width="50%" color="gray.300">
+              Register
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel>
