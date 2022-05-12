@@ -55,15 +55,9 @@ function Sidebar() {
     history.push("/");
   }
 
-  async function handleSearch() {
-    if (!search) {
-      toast({
-        title: "Please Enter something in search",
-        status: "warning",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
+  async function handleSearch(query) {
+    setSearch(query);
+    if (!query) {
       return;
     }
 
@@ -82,8 +76,8 @@ function Sidebar() {
       setSearchResult(data);
     } catch (error) {
       toast({
-        title: "Error Occured!",
-        description: "Failed to Load the Search Results",
+        title: "Error Occured",
+        description: "Failed to load the Search Results",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -217,10 +211,9 @@ function Sidebar() {
                 mr="2"
                 value={search}
                 onChange={(e) => {
-                  setSearch(e.target.value);
+                  handleSearch(e.target.value);
                 }}
               />
-              <Button onClick={handleSearch}>Go</Button>
             </Box>
             {loading ? (
               <ChatLoading />
