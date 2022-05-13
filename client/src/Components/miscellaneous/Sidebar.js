@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Button,
+  Divider,
   Drawer,
   DrawerBody,
   DrawerContent,
@@ -19,7 +20,7 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { BellIcon, ChevronDownIcon } from "@chakra-ui/icons";
+import { BellIcon, ChevronDownIcon, SettingsIcon } from "@chakra-ui/icons";
 import NotificationBadge, { Effect } from "react-notification-badge";
 
 import axios from "axios";
@@ -30,6 +31,7 @@ import { useHistory } from "react-router-dom";
 import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import { getSender } from "../../config/ChatLogics";
+import ColorPicker from "./ColorPicker";
 
 function Sidebar() {
   const [search, setSearch] = useState("");
@@ -41,14 +43,7 @@ function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const {
-    user,
-    setSelectedChat,
-    chats,
-    setChats,
-    notification,
-    setNotification,
-  } = ChatState();
+  const { user, setSelectedChat, notification, setNotification } = ChatState();
 
   function logoutHandler() {
     localStorage.removeItem("userInfo");
@@ -88,40 +83,6 @@ function Sidebar() {
     }
   }
 
-  async function accessChat(userId) {
-    try {
-      setLoadingChat(true);
-
-      const config = {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await axios.post("/api/chat", { userId }, config);
-
-      if (!chats.find((c) => c._id === data._id)) {
-        setChats([data, ...chats]);
-      }
-
-      setSelectedChat(data);
-      setLoadingChat(false);
-      onClose();
-    } catch (error) {
-      toast({
-        title: "Error fetching the chat",
-        description: error.message,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-
-      setLoadingChat(false);
-    }
-  }
-
   return (
     <>
       <Box
@@ -135,9 +96,13 @@ function Sidebar() {
       >
         <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
-            <i className="fas fa-search"></i>
-            <Text d={{ base: "none", md: "flex" }} px="4">
-              Search User
+            <SettingsIcon />
+            <Text
+              d={{ base: "none", md: "flex" }}
+              px="4"
+              fontFamily="Inconsolata"
+            >
+              Admin Panel
             </Text>
           </Button>
         </Tooltip>
@@ -203,8 +168,13 @@ function Sidebar() {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottom="1px">Search Users</DrawerHeader>
+          <DrawerHeader borderBottom="1px">Control Panel</DrawerHeader>
           <DrawerBody>
+            <ColorPicker />
+            <Divider pb="5px" />
+            <Text align="center" pb="5px">
+              Delete or Make Admin
+            </Text>
             <Box d="flex" pb="2">
               <Input
                 placeholder="Search by name or email"
@@ -219,11 +189,7 @@ function Sidebar() {
               <ChatLoading />
             ) : (
               searchResult?.map((user) => (
-                <UserListItem
-                  key={user._id}
-                  user={user}
-                  handleFunction={() => accessChat(user._id)}
-                />
+                <UserListItem key={user._id} user={user} />
               ))
             )}
             {loadingChat && <Spinner ml="auto" d="flex" />}
