@@ -94,7 +94,7 @@ function Sidebar() {
         p="5px 10px 5px 10px"
         borderWidth="5px"
       >
-        <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
+        <Tooltip label="Open Control Panel" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
             <SettingsIcon />
             <Text
