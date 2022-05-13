@@ -2,7 +2,6 @@ import { AddIcon, Search2Icon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  Divider,
   Input,
   InputGroup,
   InputLeftElement,

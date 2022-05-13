@@ -2,9 +2,12 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import {
   Box,
+  Button,
   FormControl,
   IconButton,
   Input,
+  InputGroup,
+  InputRightElement,
   Spinner,
   Text,
   useToast,
@@ -243,13 +246,26 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
               ) : (
                 <></>
               )}
-              <Input
-                placeholder="Enter a message"
-                variant="filled"
-                bg="#E0E0E0"
-                onChange={typingHandler}
-                value={newMessage}
-              />
+              <InputGroup>
+                <Input
+                  placeholder="Enter a message"
+                  variant="filled"
+                  bg="#E0E0E0"
+                  _hover={{ background: "#E0E0E0" }}
+                  onChange={typingHandler}
+                  value={newMessage}
+                />
+                <InputRightElement pr={3}>
+                  <Button
+                    bg="#E0E0E0"
+                    variant="filled"
+                    size="sm"
+                    onClick={sendMessage}
+                  >
+                    Send
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
             </FormControl>
           </Box>
         </>
