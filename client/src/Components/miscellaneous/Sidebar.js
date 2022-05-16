@@ -137,7 +137,7 @@ function Sidebar() {
                     );
                   }}
                 >
-                  {n._id.chat.isGroupChat
+                  {n.chat.isGroupChat
                     ? `New Message in ${n.chat.chatName}`
                     : `New Message from ${getSender(user, n.chat.users)}`}
                 </MenuItem>
