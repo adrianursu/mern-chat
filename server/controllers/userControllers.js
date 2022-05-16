@@ -77,4 +77,16 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
-module.exports = { registerUser, authUser, getAllUsers };
+const deleteUser = asyncHandler(async (req, res) => {
+  const _id = req.params.userId;
+  try {
+    const user = await User.findByIdAndDelete(_id);
+    if (!user) return res.sendStatus(404);
+    return res.send(user.name + " with id: " + user._id + " has been deleted!");
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+module.exports = { registerUser, authUser, getAllUsers, deleteUser };
