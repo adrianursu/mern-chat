@@ -130,7 +130,7 @@ function Sidebar() {
               px="4"
               fontFamily="Inconsolata"
             >
-              Admin Panel
+              {user.isAdmin ? "Admin Panel" : "Control Panel"}
             </Text>
           </Button>
         </Tooltip>
@@ -196,7 +196,9 @@ function Sidebar() {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottom="1px">Control Panel</DrawerHeader>
+          <DrawerHeader borderBottom="1px">
+            {user.isAdmin ? "Admin Panel" : "Control Panel"}
+          </DrawerHeader>
           <DrawerBody>
             <ColorPicker />
             {user.isAdmin && (
