@@ -88,7 +88,7 @@ function MyChats({ fetchAgain }) {
       if (!chats.find((c) => c._id === data._id)) {
         setChats([data, ...chats]);
       }
-
+      setSelectedChat(data);
       setLoadingChat(false);
     } catch (error) {
       toast({
