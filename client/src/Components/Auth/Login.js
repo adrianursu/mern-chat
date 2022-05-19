@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   FormControl,
   FormLabel,
@@ -6,17 +7,17 @@ import {
   InputGroup,
   InputRightElement,
   Button,
-  useToast,
+  useToast
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
-import React, { useState } from "react";
+import { useChat } from "../../Context/ChatProvider";
 
 function Login() {
+  const [, dispatch] = useChat();
   const [userData, setUserData] = useState({
     email: "",
-    password: "",
+    password: ""
   });
 
   const toast = useToast();
@@ -36,7 +37,7 @@ function Login() {
         status: "warning",
         duration: 5000,
         isClosable: true,
-        position: "bottom-right",
+        position: "bottom-right"
       });
       setLoading(false);
       return;
@@ -45,8 +46,8 @@ function Login() {
     try {
       const config = {
         headers: {
-          "Content-type": "application/json",
-        },
+          "Content-type": "application/json"
+        }
       };
 
       const { email, password } = userData;
@@ -61,10 +62,11 @@ function Login() {
         status: "success",
         duration: 5000,
         isClosable: true,
-        position: "bottom-right",
+        position: "bottom-right"
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
+      dispatch({ type: "USER", value: data });
       setLoading(false);
       history.push("/chats");
     } catch (error) {
@@ -74,7 +76,7 @@ function Login() {
         status: "error",
         duration: 5000,
         isClosable: true,
-        position: "bottom-right",
+        position: "bottom-right"
       });
       setLoading(false);
     }
@@ -83,7 +85,7 @@ function Login() {
   function getUserCredentialsHandler() {
     setUserData({
       email: "guest@guest.com",
-      password: "qwerty123",
+      password: "qwerty123"
     });
   }
 

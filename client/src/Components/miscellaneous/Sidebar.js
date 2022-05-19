@@ -24,7 +24,7 @@ import { BellIcon, ChevronDownIcon, SettingsIcon } from "@chakra-ui/icons";
 import NotificationBadge, { Effect } from "react-notification-badge";
 
 import axios from "axios";
-import { ChatState } from "../../Context/ChatProvider";
+import { useChat } from "../../Context/ChatProvider";
 import React, { useState } from "react";
 import ProfileModal from "./ProfileModal";
 import { useHistory } from "react-router-dom";
@@ -43,7 +43,8 @@ function Sidebar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
 
-  const { user, setSelectedChat, notification, setNotification } = ChatState();
+  const [state, dispatch] = useChat();
+  const { user, notification, bgColor } = state;
 
   function logoutHandler() {
     localStorage.removeItem("userInfo");
@@ -93,6 +94,7 @@ function Sidebar() {
         w="100%"
         p="5px 10px 5px 10px"
         borderWidth="5px"
+        background={bgColor}
       >
         <Tooltip label="Open Control Panel" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
@@ -131,10 +133,10 @@ function Sidebar() {
                 <MenuItem
                   key={n._id}
                   onClick={() => {
-                    setSelectedChat(n.chat);
-                    setNotification(
-                      notification.filter((notif) => notif !== n)
-                    );
+                    dispatch({ type: "SELECTED_CHAT", value: n.chat });
+                    dispatch({
+                      type: "NOTIFICATION", value: notification.filter((notif) => notif !== n)
+                    });
                   }}
                 >
                   {n.chat.isGroupChat

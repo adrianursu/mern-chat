@@ -13,7 +13,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { ChatState } from "../Context/ChatProvider";
+import { useChat } from "../Context/ChatProvider";
 import { getSender, getSenderFull } from "../config/ChatLogics";
 import ProfileModal from "./miscellaneous/ProfileModal";
 import UpdateGroupChatModal from "./miscellaneous/UpdateGroupChatModal";
@@ -35,8 +35,9 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
   const [typing, setTyping] = useState(false);
   const [isTyping, setIsTyping] = useState(false);
 
-  const { user, selectedChat, setSelectedChat, notification, setNotification } =
-    ChatState();
+  const [state, dispatch] =
+    useChat();
+  const { user, selectedChat, notification } = state;
   const toast = useToast();
 
   const defaultOptions = {
@@ -107,7 +108,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
         selectedChatCompare._id !== newMessageReceived.chat._id
       ) {
         if (!notification.includes(newMessageReceived)) {
-          setNotification([newMessageReceived, ...notification]);
+          dispatch({ type: "NOTIFICATION", value: [newMessageReceived, ...notification] });
           setFetchAgain(!fetchAgain);
         }
       } else {
@@ -191,7 +192,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             <IconButton
               d={{ base: "flex", md: "none" }}
               icon={<ArrowBackIcon />}
-              onClick={() => setSelectedChat("")}
+              onClick={() => dispatch({ type: "SELECTED_CHAT", value: "" })}
             />
             {!selectedChat.isGroupChat ? (
               <>

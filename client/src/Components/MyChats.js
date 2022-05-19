@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { ChatState } from "../Context/ChatProvider";
+import { useChat } from "../Context/ChatProvider";
 import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
@@ -31,7 +31,8 @@ function MyChats({ fetchAgain }) {
   const [loadingChat, setLoadingChat] = useState();
   const [tabIndex, setTabIndex] = useState(0);
 
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const [state, dispatch] = useChat();
+  const { selectedChat, user, chats } = state;
 
   const toast = useToast();
 
@@ -86,9 +87,9 @@ function MyChats({ fetchAgain }) {
       const { data } = await axios.post("/api/chat", { userId }, config);
 
       if (!chats.find((c) => c._id === data._id)) {
-        setChats([data, ...chats]);
+        dispatch({ type: "CHATS", value: [data, ...chats] });
       }
-      setSelectedChat(data);
+      dispatch({ type: "SELECTED_CHAT", value: data });
       setLoadingChat(false);
     } catch (error) {
       toast({
@@ -116,7 +117,7 @@ function MyChats({ fetchAgain }) {
 
       const { data } = await axios.get("api/chat", config);
       console.log(data);
-      setChats(data);
+      dispatch({ type: "CHATS", value: data });
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -191,7 +192,7 @@ function MyChats({ fetchAgain }) {
                   {chats.map((chat) => (
                     <Box
                       onClick={() => {
-                        setSelectedChat(chat);
+                        dispatch({ type: "SELECTED_CHAT", value: chat });
                       }}
                       cursor="pointer"
                       bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
@@ -211,7 +212,7 @@ function MyChats({ fetchAgain }) {
                           <b>{chat.latestMessage.sender.name}: </b>
                           {chat.latestMessage.content.length > 50
                             ? chat.latestMessage.content.substring(0, 51) +
-                              "..."
+                            "..."
                             : chat.latestMessage.content}
                         </Text>
                       )}

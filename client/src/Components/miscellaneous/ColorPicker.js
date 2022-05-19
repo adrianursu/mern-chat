@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Popover,
@@ -13,6 +13,7 @@ import {
   SimpleGrid,
   Input,
 } from "@chakra-ui/react";
+import { useChat } from "../../Context/ChatProvider";
 
 const colors = [
   "gray.500",
@@ -28,36 +29,37 @@ const colors = [
 ];
 
 function ColorPicker() {
-  const [color, setColor] = useState("gray.500");
+  const [state, dispatch] = useChat();
+  const { bgColor } = state;
 
   return (
     <Box d="flex" pb={2}>
       <Popover variant="picker">
         <PopoverTrigger>
           <Button
-            aria-label={color}
-            background={color}
+            aria-label={bgColor}
+            background={bgColor}
             width="100%"
             color="gray.200"
             padding={0}
             minWidth="unset"
             borderRadius={3}
-            _hover={{ background: color }}
+            _hover={{ background: bgColor }}
           >
             Background Color Picker
           </Button>
         </PopoverTrigger>
         <PopoverContent width="170px">
-          <PopoverArrow bg={color} />
+          <PopoverArrow bg={bgColor} />
           <PopoverCloseButton color="white" />
           <PopoverHeader
             height="100px"
-            backgroundColor={color}
+            backgroundColor={bgColor}
             borderTopLeftRadius={5}
             borderTopRightRadius={5}
             color="white"
           >
-            <Center height="100%">{color}</Center>
+            <Center height="100%">{bgColor}</Center>
           </PopoverHeader>
           <PopoverBody height="120px">
             <SimpleGrid columns={5} spacing={2}>
@@ -73,7 +75,7 @@ function ColorPicker() {
                   borderRadius={3}
                   _hover={{ background: c }}
                   onClick={() => {
-                    setColor(c);
+                    dispatch({ type: "BG_COLOR", value: c });
                   }}
                 />
               ))}
@@ -83,9 +85,9 @@ function ColorPicker() {
               marginTop={3}
               placeholder="red.100"
               size="sm"
-              value={color}
+              value={bgColor}
               onChange={(e) => {
-                setColor(e.target.value);
+                dispatch({ type: "BG_COLOR", value: e.target.value });
               }}
             />
           </PopoverBody>

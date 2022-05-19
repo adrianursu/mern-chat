@@ -10,7 +10,7 @@ import {
   Text,
   Tab,
   TabPanels,
-  TabPanel,
+  TabPanel
 } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 
@@ -40,7 +40,7 @@ function Homepage() {
           WebkitBackdropFilter: "blur(16px) saturate(180%)",
           backgroundColor: "rgba(17, 25, 40, 0.37)",
           borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.125)",
+          border: "1px solid rgba(255, 255, 255, 0.125)"
         }}
       >
         <Text fontSize="4xl" fontFamily="Inconsolata" color="white">
@@ -58,7 +58,7 @@ function Homepage() {
           WebkitBackdropFilter: "blur(16px) saturate(180%)",
           backgroundColor: "rgba(17, 25, 40, 0.37)",
           borderRadius: "12px",
-          border: "1px solid rgba(255, 255, 255, 0.125)",
+          border: "1px solid rgba(255, 255, 255, 0.125)"
         }}
       >
         <Tabs variant="soft-rounded">
