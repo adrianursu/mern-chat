@@ -43,6 +43,7 @@ function ColorPicker() {
             minWidth="unset"
             borderRadius={3}
             _hover={{ background: color }}
+            fontFamily="Inconsolata"
           >
             Background Color Picker
           </Button>
