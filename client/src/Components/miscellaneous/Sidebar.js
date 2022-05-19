@@ -8,107 +8,35 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  Input,
   Menu,
   MenuButton,
   MenuDivider,
   MenuItem,
   MenuList,
-  Spinner,
   Text,
   Tooltip,
   useDisclosure,
-  useToast,
 } from "@chakra-ui/react";
 import { BellIcon, ChevronDownIcon, SettingsIcon } from "@chakra-ui/icons";
 import NotificationBadge, { Effect } from "react-notification-badge";
 
-import axios from "axios";
 import { ChatState } from "../../Context/ChatProvider";
-import React, { useState } from "react";
+import React from "react";
 import ProfileModal from "./ProfileModal";
 import { useHistory } from "react-router-dom";
-import ChatLoading from "../ChatLoading";
-import UserListItem from "../UserAvatar/UserListItem";
 import { getSender } from "../../config/ChatLogics";
 import ColorPicker from "./ColorPicker";
-import AdminProfileModal from "./Admin/AdminProfileModal";
+import ManageUsers from "./Admin/ManageUsers";
 
 function Sidebar() {
-  const [search, setSearch] = useState("");
-  const [searchResult, setSearchResult] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [loadingChat, setLoadingChat] = useState();
-
   const history = useHistory();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const toast = useToast();
 
   const { user, setSelectedChat, notification, setNotification } = ChatState();
 
   function logoutHandler() {
     localStorage.removeItem("userInfo");
     history.push("/");
-  }
-
-  async function handleSearch(query) {
-    setSearch(query);
-    if (!query) {
-      return;
-    }
-
-    try {
-      setLoading(true);
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
-
-      setLoading(false);
-      setSearchResult(data);
-    } catch (error) {
-      toast({
-        title: "Error Occured",
-        description: "Failed to load the Search Results",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-
-      setLoading(false);
-    }
-  }
-
-  async function deleteHandler() {
-    try {
-      setLoading(true);
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      // await axios.delete(`/api/user/delete/${}`, config); TO DO
-
-      setLoading(false);
-    } catch (error) {
-      toast({
-        title: "Error Occured!",
-        description: "Failed to delete user",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-
-      setLoading(false);
-    }
   }
 
   return (
@@ -204,32 +132,7 @@ function Sidebar() {
             {user.isAdmin && (
               <>
                 <Divider pb="5px" />
-                <Text align="center" pb="5px">
-                  Delete or Make Admin
-                </Text>
-                <Box d="flex" pb="2">
-                  <Input
-                    placeholder="Search by name or email"
-                    mr="2"
-                    value={search}
-                    onChange={(e) => {
-                      handleSearch(e.target.value);
-                    }}
-                  />
-                </Box>
-                {loading ? (
-                  <ChatLoading />
-                ) : (
-                  searchResult?.map((user) => (
-                    <AdminProfileModal
-                      user={user}
-                      deleteHandler={deleteHandler}
-                    >
-                      <UserListItem key={user._id} user={user} />
-                    </AdminProfileModal>
-                  ))
-                )}
-                {loadingChat && <Spinner ml="auto" d="flex" />}
+                <ManageUsers />
               </>
             )}
           </DrawerBody>
