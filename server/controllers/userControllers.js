@@ -6,7 +6,7 @@ const generateToken = require("../config/generateToken");
 //@route           POST /api/user/
 //@access          Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password, avatar } = req.body;
+  const { name, email, password, avatar, isAdmin } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
@@ -25,6 +25,7 @@ const registerUser = asyncHandler(async (req, res) => {
     email,
     password,
     avatar,
+    isAdmin,
   });
 
   if (user) {
@@ -33,6 +34,7 @@ const registerUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       avatar: user.avatar,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -52,6 +54,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       avatar: user.avatar,
+      isAdmin: user.isAdmin,
       token: generateToken(user._id),
     });
   } else {
@@ -77,4 +80,16 @@ const getAllUsers = asyncHandler(async (req, res) => {
   res.send(users);
 });
 
-module.exports = { registerUser, authUser, getAllUsers };
+const deleteUser = asyncHandler(async (req, res) => {
+  const _id = req.params.userId;
+  try {
+    const user = await User.findByIdAndDelete(_id);
+    if (!user) return res.sendStatus(404);
+    return res.send(user.name + " with id: " + user._id + " has been deleted!");
+  } catch (error) {
+    res.status(400);
+    throw new Error(error.message);
+  }
+});
+
+module.exports = { registerUser, authUser, getAllUsers, deleteUser };
