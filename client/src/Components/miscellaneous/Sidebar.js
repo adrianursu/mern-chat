@@ -32,6 +32,7 @@ import ChatLoading from "../ChatLoading";
 import UserListItem from "../UserAvatar/UserListItem";
 import { getSender } from "../../config/ChatLogics";
 import ColorPicker from "./ColorPicker";
+import AdminProfileModal from "./Admin/AdminProfileModal";
 
 function Sidebar() {
   const [search, setSearch] = useState("");
@@ -83,6 +84,33 @@ function Sidebar() {
     }
   }
 
+  async function deleteHandler() {
+    try {
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      // await axios.delete(`/api/user/delete/${}`, config); TO DO
+
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to delete user",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <Box
@@ -102,7 +130,7 @@ function Sidebar() {
               px="4"
               fontFamily="Inconsolata"
             >
-              Admin Panel
+              {user.isAdmin ? "Admin Panel" : "Control Panel"}
             </Text>
           </Button>
         </Tooltip>
@@ -168,31 +196,42 @@ function Sidebar() {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottom="1px">Control Panel</DrawerHeader>
+          <DrawerHeader borderBottom="1px" fontFamily="Inconsolata">
+            {user.isAdmin ? "Admin Panel" : "Control Panel"}
+          </DrawerHeader>
           <DrawerBody>
             <ColorPicker />
-            <Divider pb="5px" />
-            <Text align="center" pb="5px">
-              Delete or Make Admin
-            </Text>
-            <Box d="flex" pb="2">
-              <Input
-                placeholder="Search by name or email"
-                mr="2"
-                value={search}
-                onChange={(e) => {
-                  handleSearch(e.target.value);
-                }}
-              />
-            </Box>
-            {loading ? (
-              <ChatLoading />
-            ) : (
-              searchResult?.map((user) => (
-                <UserListItem key={user._id} user={user} />
-              ))
+            {user.isAdmin && (
+              <>
+                <Divider pb="5px" />
+                <Text align="center" pb="5px">
+                  Delete or Make Admin
+                </Text>
+                <Box d="flex" pb="2">
+                  <Input
+                    placeholder="Search by name or email"
+                    mr="2"
+                    value={search}
+                    onChange={(e) => {
+                      handleSearch(e.target.value);
+                    }}
+                  />
+                </Box>
+                {loading ? (
+                  <ChatLoading />
+                ) : (
+                  searchResult?.map((user) => (
+                    <AdminProfileModal
+                      user={user}
+                      deleteHandler={deleteHandler}
+                    >
+                      <UserListItem key={user._id} user={user} />
+                    </AdminProfileModal>
+                  ))
+                )}
+                {loadingChat && <Spinner ml="auto" d="flex" />}
+              </>
             )}
-            {loadingChat && <Spinner ml="auto" d="flex" />}
           </DrawerBody>
         </DrawerContent>
       </Drawer>
