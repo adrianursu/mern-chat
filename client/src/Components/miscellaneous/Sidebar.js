@@ -196,7 +196,7 @@ function Sidebar() {
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
         <DrawerContent>
-          <DrawerHeader borderBottom="1px">
+          <DrawerHeader borderBottom="1px" fontFamily="Inconsolata">
             {user.isAdmin ? "Admin Panel" : "Control Panel"}
           </DrawerHeader>
           <DrawerBody>
