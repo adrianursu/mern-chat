@@ -1,14 +1,18 @@
 import { Avatar, Box, Text } from "@chakra-ui/react";
 import React from "react";
+import { useChat } from "../../Context/ChatProvider";
 
 function UserListItem({ user, handleFunction }) {
+  const [state] = useChat();
+  const { bgColor } = state;
+
   return (
     <Box
       onClick={handleFunction}
       cursor="pointer"
       bg="#E8E8E8"
       _hover={{
-        background: "#38B2AC",
+        background: bgColor,
         color: "white",
       }}
       w="100%"

@@ -32,7 +32,7 @@ function MyChats({ fetchAgain }) {
   const [tabIndex, setTabIndex] = useState(0);
 
   const [state, dispatch] = useChat();
-  const { selectedChat, user, chats } = state;
+  const { selectedChat, user, chats, bgColor } = state;
 
   const toast = useToast();
 
@@ -195,7 +195,7 @@ function MyChats({ fetchAgain }) {
                         dispatch({ type: "SELECTED_CHAT", value: chat });
                       }}
                       cursor="pointer"
-                      bg={selectedChat === chat ? "#38B2AC" : "#E8E8E8"}
+                      bg={selectedChat === chat ? bgColor : "#E8E8E8"}
                       color={selectedChat === chat ? "white" : "black"}
                       px={3}
                       py={3}
