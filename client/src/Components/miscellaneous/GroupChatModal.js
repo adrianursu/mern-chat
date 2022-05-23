@@ -15,7 +15,7 @@ import {
   Spinner,
   Box,
 } from "@chakra-ui/react";
-import { ChatState } from "../../Context/ChatProvider";
+import { useChat } from "../../Context/ChatProvider";
 import axios from "axios";
 import UserListItem from "../UserAvatar/UserListItem";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
@@ -29,7 +29,8 @@ function GroupChatModal({ children }) {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
-  const { user, chats, setChats } = ChatState();
+  const [state, dispatch] = useChat();
+  const { user, chats } = state;
 
   async function handleSearch(query) {
     setSearch(query);
@@ -92,7 +93,7 @@ function GroupChatModal({ children }) {
         config
       );
 
-      setChats([data, ...chats]);
+      dispatch({ type: "CHATS", value: [data, ...chats] });
       onClose();
 
       toast({

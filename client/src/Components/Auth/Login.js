@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+
 import {
   FormControl,
   FormLabel,
@@ -10,10 +12,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-
-import React, { useState } from "react";
+import { useChat } from "../../Context/ChatProvider";
 
 function Login() {
+  const [, dispatch] = useChat();
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -65,6 +67,7 @@ function Login() {
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
+      dispatch({ type: "USER", value: data });
       setLoading(false);
       history.push("/chats");
     } catch (error) {
