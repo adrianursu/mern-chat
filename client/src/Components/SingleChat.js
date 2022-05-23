@@ -255,24 +255,23 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
                   onChange={typingHandler}
                   value={newMessage}
                 />
-                <InputRightElement pr={3}>
-                  <Button
-                    bg="#E0E0E0"
-                    variant="filled"
-                    size="sm"
-                    onClick={sendMessage}
-                  >
-                    Send
-                  </Button>
-                </InputRightElement>
               </InputGroup>
             </FormControl>
           </Box>
         </>
       ) : (
-        <Box d="flex" alignItems="center" justifyContent="center" h="100%">
+        <Box
+          d="flex"
+          alignItems="center"
+          justifyContent="center"
+          h="100%"
+          flexDir="column"
+        >
           <Text fontSize="3xl" pb={3} fontFamily="Inconsolata">
-            Click on a user to start chatting
+            Welcome to myChat
+          </Text>
+          <Text fontSize="xl" fontFamily="Inconsolata">
+            Start chatting by pressing on a random user
           </Text>
         </Box>
       )}
