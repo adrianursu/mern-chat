@@ -116,7 +116,6 @@ function MyChats({ fetchAgain }) {
       };
 
       const { data } = await axios.get("api/chat", config);
-      console.log(data);
       dispatch({ type: "CHATS", value: data });
     } catch (error) {
       toast({
