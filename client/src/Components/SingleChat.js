@@ -74,7 +74,6 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
         config
       );
 
-      console.log(messages);
       setMessages(data);
       setLoading(false);
 
@@ -97,8 +96,6 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
 
     selectedChatCompare = selectedChat;
   }, [selectedChat]);
-
-  console.log(notification, "---------");
 
   useEffect(() => {
     socket.on("message received", (newMessageReceived) => {
