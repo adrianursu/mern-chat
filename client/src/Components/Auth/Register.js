@@ -12,8 +12,10 @@ import axios from "axios";
 
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useChat } from "../../Context/ChatProvider";
 
 function Register() {
+  const [, dispatch] = useChat();
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -56,7 +58,6 @@ function Register() {
         .then((res) => res.json())
         .then((info) => {
           setUserData({ ...userData, avatar: info.url.toString() });
-          console.log(info.url.toString());
           setLoading(false);
         })
         .catch((error) => {
@@ -128,8 +129,7 @@ function Register() {
       });
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-      console.log(data);
-
+      dispatch({ type: "USER", value: data });
       setLoading(false);
       history.push("/chats");
     } catch (error) {
