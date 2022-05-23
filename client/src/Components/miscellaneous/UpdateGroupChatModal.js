@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useState } from "react";
-import { ChatState } from "../../Context/ChatProvider";
+import { useChat } from "../../Context/ChatProvider";
 import UserBadgeItem from "../UserAvatar/UserBadgeItem";
 import UserListItem from "../UserAvatar/UserListItem";
 
@@ -33,7 +33,8 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }) {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { selectedChat, setSelectedChat, user } = ChatState();
+  const [state, dispatch] = useChat();
+  const { selectedChat, user } = state;
 
   async function handleRemove(user1) {
     if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
@@ -64,7 +65,9 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }) {
         config
       );
 
-      user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
+      user1._id === user._id
+        ? dispatch({ type: "SELECTED_CHAT", value: null })
+        : dispatch({ type: "SELECTED_CHAT", value: data });
       setFetchAgain(!fetchAgain);
       fetchMessages();
       setLoading(false);
@@ -104,7 +107,7 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }) {
         config
       );
 
-      setSelectedChat(data);
+      dispatch({ type: "SELECTED_CHAT", value: data });
       setFetchAgain(!fetchAgain);
       setRenameLoading(false);
     } catch (error) {
@@ -197,7 +200,7 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }) {
         config
       );
 
-      setSelectedChat(data);
+      dispatch({ type: "SELECTED_CHAT", value: data });
       setFetchAgain(!fetchAgain);
       setLoading(false);
     } catch (error) {

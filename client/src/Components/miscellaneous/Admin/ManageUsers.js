@@ -13,7 +13,7 @@ import {
   Spinner,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { ChatState } from "../../../Context/ChatProvider";
+import { useChat } from "../../../Context/ChatProvider";
 import UserListItem from "../../UserAvatar/UserListItem";
 import axios from "axios";
 import ChatLoading from "../../ChatLoading";
@@ -24,7 +24,8 @@ function ManageUsers() {
   const [searchResult, setSearchResult] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingChat, setLoadingChat] = useState();
-  const { user } = ChatState();
+  const [state, dispatch] = useChat();
+  const { user } = state;
 
   const toast = useToast();
 
