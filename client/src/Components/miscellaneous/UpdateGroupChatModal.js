@@ -34,7 +34,7 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [state, dispatch] = useChat();
-  const { selectedChat, user } = state;
+  const { selectedChat, user, bgColor } = state;
 
   async function handleRemove(user1) {
     if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
@@ -217,7 +217,13 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }) {
 
   return (
     <>
-      <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+      <IconButton
+        bgColor={bgColor}
+        _hover={{ bgColor: bgColor }}
+        d={{ base: "flex" }}
+        icon={<ViewIcon />}
+        onClick={onOpen}
+      />
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />

@@ -14,15 +14,24 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
+import { useChat } from "../../Context/ChatProvider";
 
 function ProfileModal({ user, children }) {
+  const [state] = useChat();
+  const { bgColor } = state;
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       {children ? (
         <span onClick={onOpen}>{children}</span>
       ) : (
-        <IconButton d={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} />
+        <IconButton
+          d={{ base: "flex" }}
+          bgColor={bgColor}
+          _hover={{ bgColor: bgColor }}
+          icon={<ViewIcon />}
+          onClick={onOpen}
+        />
       )}
       <Modal size="lg" onClose={onClose} isOpen={isOpen} isCentered>
         <ModalOverlay />
