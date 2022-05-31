@@ -1,13 +1,14 @@
 import { Avatar, Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { useChat } from "../../Context/ChatProvider";
+import BlurredBox from "../Auth/Theme/BlurredBox";
 
 function UserListItem({ user, handleFunction }) {
   const [state] = useChat();
   const { bgColor } = state;
 
   return (
-    <Box
+    <BlurredBox
       onClick={handleFunction}
       cursor="pointer"
       bg="#E8E8E8"
@@ -32,13 +33,13 @@ function UserListItem({ user, handleFunction }) {
         src={user.avatar}
       />
       <Box>
-        <Text>{user.name}</Text>
-        <Text fontSize="xs">
+        <Text color={"gray.300"}>{user.name}</Text>
+        <Text color={"gray.300"} fontSize="xs">
           <b>Email: </b>
           {user.email}
         </Text>
       </Box>
-    </Box>
+    </BlurredBox>
   );
 }
 
