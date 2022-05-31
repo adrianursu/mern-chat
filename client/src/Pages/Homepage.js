@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Login from "../Components/Auth/Login";
 import Register from "../Components/Auth/Register";
-import BlurredBox from "../Components/BlurredBox";
+import BlurredBox from "../Components/Auth/Theme/BlurredBox";
 
 import {
   Container,
@@ -23,7 +23,7 @@ function Homepage() {
     const user = JSON.parse(localStorage.getItem("userInfo"));
     dispatch({ type: "USER", value: user });
 
-    console.log(user)
+    console.log(user);
 
     if (user) {
       history.push("/chats");
