@@ -106,7 +106,11 @@ function Sidebar() {
           </Menu>
 
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton
+              as={Button}
+              rightIcon={<ChevronDownIcon />}
+              bgColor={bgColor}
+            >
               <Avatar
                 size="sm"
                 cursor="pointer"

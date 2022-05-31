@@ -2,12 +2,10 @@ import { ArrowBackIcon } from "@chakra-ui/icons";
 
 import {
   Box,
-  Button,
   FormControl,
   IconButton,
   Input,
   InputGroup,
-  InputRightElement,
   Spinner,
   Text,
   useToast,
@@ -271,7 +269,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             Welcome to myChat
           </Text>
           <Text fontSize="xl" fontFamily="Inconsolata">
-            Start chatting by pressing on a random user
+            Start chatting by pressing on a random user or group chat
           </Text>
         </Box>
       )}
