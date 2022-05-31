@@ -1,5 +1,4 @@
 import React from "react";
-import { Box } from "@chakra-ui/react";
 import SingleChat from "./SingleChat";
 import { useChat } from "../Context/ChatProvider";
 import BlurredBox from "./Auth/Theme/BlurredBox";

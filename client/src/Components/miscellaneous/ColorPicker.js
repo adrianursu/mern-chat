@@ -8,10 +8,8 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   PopoverHeader,
-  Center,
   PopoverBody,
   SimpleGrid,
-  Input,
 } from "@chakra-ui/react";
 
 import { useChat } from "../../Context/ChatProvider";
