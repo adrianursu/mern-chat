@@ -55,15 +55,13 @@ function ColorPicker() {
           <PopoverArrow bg={bgColor} />
           <PopoverCloseButton color="white" />
           <PopoverHeader
-            height="100px"
+            height="50px"
             backgroundColor={bgColor}
             borderTopLeftRadius={5}
             borderTopRightRadius={5}
             color="white"
-          >
-            <Center height="100%">{bgColor}</Center>
-          </PopoverHeader>
-          <PopoverBody height="120px">
+          />
+          <PopoverBody height="70px">
             <SimpleGrid columns={5} spacing={2}>
               {colors.map((c) => (
                 <Button
@@ -82,16 +80,6 @@ function ColorPicker() {
                 />
               ))}
             </SimpleGrid>
-            <Input
-              borderRadius={3}
-              marginTop={3}
-              placeholder="red.100"
-              size="sm"
-              value={bgColor}
-              onChange={(e) => {
-                dispatch({ type: "BG_COLOR", value: e.target.value });
-              }}
-            />
           </PopoverBody>
         </PopoverContent>
       </Popover>
