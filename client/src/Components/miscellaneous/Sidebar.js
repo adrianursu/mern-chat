@@ -55,19 +55,29 @@ function Sidebar() {
         bg="rgba(17, 25, 40, 0.37)"
       >
         <Tooltip label="Open Control Panel" hasArrow placement="bottom-end">
-          <Button variant="ghost" onClick={onOpen}>
-            <SettingsIcon />
+          <Button
+            variant="ghost"
+            onClick={onOpen}
+            _hover={{ bgColor: "inherit" }}
+          >
+            <SettingsIcon color="gray.300" />
             <Text
               d={{ base: "none", md: "flex" }}
               px="4"
               fontFamily="Inconsolata"
+              color="gray.300"
             >
               {user.isAdmin ? "Admin Panel" : "Control Panel"}
             </Text>
           </Button>
         </Tooltip>
 
-        <Text fontSize="2xl" fontFamily="Inconsolata">
+        <Text
+          fontSize="2xl"
+          fontFamily="Inconsolata"
+          fontWeight="bold"
+          color="gray.200"
+        >
           myChat
         </Text>
 
@@ -78,9 +88,14 @@ function Sidebar() {
                 count={notification.length}
                 effect={Effect.SCALE}
               />
-              <BellIcon fontSize="2xl" margin="1" />
+              <BellIcon fontSize="2xl" margin="1" color="gray.300" />
             </MenuButton>
-            <MenuList>
+            <MenuList
+              bg="rgba(17, 25, 40, 0.77)"
+              backdropFilter="blur(16px) saturate(180%)"
+              border="1px solid rgba(255, 255, 255, 0.125)"
+              color="white"
+            >
               {!notification.length && (
                 <Box d="flex" justifyContent="center">
                   0 Notifications
@@ -111,6 +126,8 @@ function Sidebar() {
               as={Button}
               rightIcon={<ChevronDownIcon />}
               bgColor={bgColor}
+              _hover={{ bgColor: bgColor }}
+              _active={{ bgColor: bgColor }}
             >
               <Avatar
                 size="sm"
@@ -119,12 +136,30 @@ function Sidebar() {
                 src={user.avatar}
               />
             </MenuButton>
-            <MenuList>
+            <MenuList
+              bg="rgba(17, 25, 40, 0.77)"
+              backdropFilter="blur(16px) saturate(180%)"
+              border="1px solid rgba(255, 255, 255, 0.125)"
+            >
               <ProfileModal user={user}>
-                <MenuItem>My Profile</MenuItem>
+                <MenuItem
+                  color="white"
+                  _hover={{ bgColor: bgColor }}
+                  _active={{ bgColor: bgColor }}
+                  _focus={{ bgColor: bgColor }}
+                >
+                  My Profile
+                </MenuItem>
               </ProfileModal>
               <MenuDivider />
-              <MenuItem onClick={logoutHandler}>Logout</MenuItem>
+              <MenuItem
+                onClick={logoutHandler}
+                color="white"
+                _hover={{ bgColor: bgColor }}
+                _focus={{ bgColor: bgColor }}
+              >
+                Logout
+              </MenuItem>
             </MenuList>
           </Menu>
         </div>
@@ -132,8 +167,17 @@ function Sidebar() {
 
       <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
         <DrawerOverlay />
-        <DrawerContent>
-          <DrawerHeader borderBottom="1px" fontFamily="Inconsolata">
+        <DrawerContent
+          bg="rgba(17, 25, 40, 0.7)"
+          border="1px solid rgba(255, 255, 255, 0.125)"
+          backdropFilter="blur(16px) saturate(180%)"
+          WebkitBackdropFilter="blur(16px) saturate(180%)"
+        >
+          <DrawerHeader
+            borderBottom="1px"
+            fontFamily="Inconsolata"
+            color="white"
+          >
             {user.isAdmin ? "Admin Panel" : "Control Panel"}
           </DrawerHeader>
           <DrawerBody>
