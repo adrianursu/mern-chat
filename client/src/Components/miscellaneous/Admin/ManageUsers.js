@@ -11,7 +11,11 @@ import {
   Input,
   useToast,
   Spinner,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
+
 import { useState } from "react";
 import { useChat } from "../../../Context/ChatProvider";
 import UserListItem from "../../UserAvatar/UserListItem";
@@ -106,7 +110,13 @@ function ManageUsers() {
             Delete from db/Make Admin
           </Button>
         </PopoverTrigger>
-        <PopoverContent width="100%">
+        <PopoverContent
+          width="100%"
+          bg="rgba(17, 25, 40, 1)"
+          border="1px solid rgba(255, 255, 255, 0.125)"
+          backdropFilter="blur(16px) saturate(180%)"
+          WebkitBackdropFilter="blur(16px) saturate(180%)"
+        >
           <PopoverArrow bg="red.500" />
           <PopoverCloseButton color="white" />
           <PopoverHeader
@@ -119,14 +129,21 @@ function ManageUsers() {
           <PopoverBody>
             {" "}
             <Box d="flex" pb="2">
-              <Input
-                placeholder="Search by name or email"
-                mr="2"
-                value={search}
-                onChange={(e) => {
-                  handleSearch(e.target.value);
-                }}
-              />
+              <InputGroup>
+                <InputLeftElement
+                  pointerEvents="none"
+                  children={<Search2Icon color="gray.500" />}
+                />
+                <Input
+                  placeholder="Search by name or email"
+                  textColor="white"
+                  mr="2"
+                  value={search}
+                  onChange={(e) => {
+                    handleSearch(e.target.value);
+                  }}
+                />
+              </InputGroup>
             </Box>
             {loading ? (
               <ChatLoading />
