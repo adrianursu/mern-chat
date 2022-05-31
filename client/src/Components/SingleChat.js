@@ -264,6 +264,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
           justifyContent="center"
           h="100%"
           flexDir="column"
+          color="white"
         >
           <Text fontSize="3xl" pb={3} fontFamily="Inconsolata">
             Welcome to myChat
