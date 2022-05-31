@@ -145,11 +145,14 @@ function Register() {
     }
   }
 
+  const gray = "gray.300";
+
   return (
     <VStack spacing="5px">
       <FormControl id="first-name" isRequired>
-        <FormLabel>Name</FormLabel>
+        <FormLabel color={gray}>Name</FormLabel>
         <Input
+          textColor={gray}
           placeholder="Enter Your Name"
           onChange={(e) => {
             setUserData({ ...userData, name: e.target.value });
@@ -158,8 +161,9 @@ function Register() {
       </FormControl>
 
       <FormControl id="email" isRequired>
-        <FormLabel>Email</FormLabel>
+        <FormLabel color={gray}>Email</FormLabel>
         <Input
+          textColor={gray}
           placeholder="Enter Your E-mail"
           onChange={(e) => {
             setUserData({ ...userData, email: e.target.value });
@@ -168,9 +172,10 @@ function Register() {
       </FormControl>
 
       <FormControl id="password" isRequired>
-        <FormLabel>Password</FormLabel>
+        <FormLabel color={gray}>Password</FormLabel>
         <InputGroup>
           <Input
+            textColor={gray}
             type={show.password ? "text" : "password"}
             placeholder="Enter Your Password"
             onChange={(e) => {
@@ -192,9 +197,10 @@ function Register() {
       </FormControl>
 
       <FormControl id="confirm-password" isRequired>
-        <FormLabel>Confirm Password</FormLabel>
+        <FormLabel color={gray}>Confirm Password</FormLabel>
         <InputGroup>
           <Input
+            textColor={gray}
             type={show.confirmPassword ? "text" : "password"}
             placeholder="Confirm Your Password"
             onChange={(e) => {
@@ -220,8 +226,9 @@ function Register() {
       </FormControl>
 
       <FormControl id="avatar">
-        <FormLabel>Upload your Picture</FormLabel>
+        <FormLabel color={gray}>Upload your Picture</FormLabel>
         <Input
+          color={gray}
           type="file"
           p={1.5}
           accept="image/*"
