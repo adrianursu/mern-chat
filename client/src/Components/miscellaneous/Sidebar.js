@@ -37,6 +37,7 @@ function Sidebar() {
 
   function logoutHandler() {
     localStorage.removeItem("userInfo");
+    dispatch({ type: "USER", value: null });
     history.push("/");
   }
 
