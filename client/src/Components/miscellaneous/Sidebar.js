@@ -47,11 +47,12 @@ function Sidebar() {
         d="flex"
         justifyContent="space-between"
         alignItems="center"
-        bg="white"
         w="100%"
         p="5px 10px 5px 10px"
-        borderWidth="5px"
-        background={bgColor}
+        border="5px solid rgba(255, 255, 255, 0.125)"
+        backdropFilter="blur(16px) saturate(180%)"
+        WebkitBackdropFilter="blur(16px) saturate(180%)"
+        bg="rgba(17, 25, 40, 0.37)"
       >
         <Tooltip label="Open Control Panel" hasArrow placement="bottom-end">
           <Button variant="ghost" onClick={onOpen}>
@@ -67,7 +68,7 @@ function Sidebar() {
         </Tooltip>
 
         <Text fontSize="2xl" fontFamily="Inconsolata">
-          Mern Chat
+          myChat
         </Text>
 
         <div>

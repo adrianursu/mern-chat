@@ -35,7 +35,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
   const [isTyping, setIsTyping] = useState(false);
 
   const [state, dispatch] = useChat();
-  const { user, selectedChat, notification } = state;
+  const { user, selectedChat, notification, bgColor } = state;
   const toast = useToast();
 
   const defaultOptions = {
@@ -190,6 +190,8 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
           >
             <IconButton
               d={{ base: "flex", md: "none" }}
+              bgColor={bgColor}
+              _hover={{ bgColor: bgColor }}
               icon={<ArrowBackIcon />}
               onClick={() => dispatch({ type: "SELECTED_CHAT", value: "" })}
             />
