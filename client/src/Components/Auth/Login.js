@@ -90,12 +90,15 @@ function Login() {
     });
   }
 
+  const gray = "gray.300";
+
   return (
     <>
       <VStack spacing="5px">
         <FormControl id="email" isRequired>
-          <FormLabel color="gray.300">E-mail</FormLabel>
+          <FormLabel color={gray}>E-mail</FormLabel>
           <Input
+            textColor={gray}
             value={userData.email}
             placeholder="Enter your email"
             onChange={(e) => {
@@ -105,9 +108,10 @@ function Login() {
         </FormControl>
 
         <FormControl id="password" isRequired>
-          <FormLabel color="gray.300">Password</FormLabel>
+          <FormLabel color={gray}>Password</FormLabel>
           <InputGroup>
             <Input
+              textColor={gray}
               value={userData.password}
               type={show ? "text" : "password"}
               placeholder="Enter Your Password"
