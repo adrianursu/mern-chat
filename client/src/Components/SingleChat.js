@@ -21,6 +21,7 @@ import ScrollableChat from "./ScrollableChat";
 import io from "socket.io-client";
 import Lottie from "react-lottie";
 import animationData from "../animation/typing.json";
+import BlurredBox from "./Auth/Theme/BlurredBox";
 
 const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
@@ -185,6 +186,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
             d="flex"
             justifyContent={{ base: "space-between" }}
             alignItems="center"
+            color="gray.300"
           >
             <IconButton
               d={{ base: "flex", md: "none" }}
@@ -207,7 +209,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
               </>
             )}
           </Text>
-          <Box
+          <BlurredBox
             d="flex"
             flexDir="column"
             justifyContent="flex-end"
@@ -247,15 +249,14 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
               <InputGroup>
                 <Input
                   placeholder="Enter a message"
-                  variant="filled"
-                  bg="#E0E0E0"
-                  _hover={{ background: "#E0E0E0" }}
                   onChange={typingHandler}
                   value={newMessage}
+                  focusBorderColor="grey"
+                  textColor={"white"}
                 />
               </InputGroup>
             </FormControl>
-          </Box>
+          </BlurredBox>
         </>
       ) : (
         <Box
