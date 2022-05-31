@@ -22,6 +22,7 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import UserListItem from "./UserAvatar/UserListItem";
+import BlurredBox from "./Auth/Theme/BlurredBox";
 
 function MyChats({ fetchAgain }) {
   const [loggedUser, setLoggedUser] = useState();
@@ -135,11 +136,10 @@ function MyChats({ fetchAgain }) {
   }, [fetchAgain]);
 
   return (
-    <Box
+    <BlurredBox
       d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       p={3}
-      bg="white"
       w={{ base: "100%", md: "31%" }}
       borderRadius="lg"
       borderWidth="1px"
@@ -150,9 +150,13 @@ function MyChats({ fetchAgain }) {
         index={tabIndex}
         onChange={handleTabsChange}
       >
-        <TabList mb="1em">
-          <Tab width="50%">Chats</Tab>
-          <Tab width="50%">Search</Tab>
+        <TabList mb="1em" color="gray.300">
+          <Tab width="50%" _selected={{ color: "white", fontWeight: "bold" }}>
+            Chats
+          </Tab>
+          <Tab width="50%" _selected={{ color: "white", fontWeight: "bold" }}>
+            Search
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -167,16 +171,23 @@ function MyChats({ fetchAgain }) {
             >
               <GroupChatModal>
                 <Button
+                  bg="rgba(17, 25, 40, 0.37)"
+                  borderRadius="12px"
+                  border="1px solid rgba(255, 255, 255, 0.125)"
+                  backdropFilter="blur(16px) saturate(180%)"
+                  WebkitBackdropFilter="blur(16px) saturate(180%)"
                   d="flex"
                   w="100%"
                   fontSize={{ base: "17px", md: "10px", lg: "17px" }}
                   rightIcon={<AddIcon />}
+                  color="gray.300"
+                  _hover={{ bgColor: bgColor, color: "gray.300" }}
                 >
                   New Group Chat
                 </Button>
               </GroupChatModal>
             </Box>
-            <Box
+            <BlurredBox
               d="flex"
               flexDir="column"
               p={3}
@@ -194,12 +205,17 @@ function MyChats({ fetchAgain }) {
                         dispatch({ type: "SELECTED_CHAT", value: chat });
                       }}
                       cursor="pointer"
-                      bg={selectedChat === chat ? bgColor : "#E8E8E8"}
-                      color={selectedChat === chat ? "white" : "black"}
+                      bg={
+                        selectedChat === chat
+                          ? bgColor
+                          : "rgba(17, 25, 40, 0.37)"
+                      }
+                      color={selectedChat === chat ? "white" : "gray.400"}
                       px={3}
                       py={3}
                       borderRadius="lg"
                       key={chat._id}
+                      _hover={{ bgColor: bgColor, color: "gray.100" }}
                     >
                       <Text>
                         {!chat.isGroupChat
@@ -221,7 +237,7 @@ function MyChats({ fetchAgain }) {
               ) : (
                 <ChatLoading />
               )}
-            </Box>
+            </BlurredBox>
           </TabPanel>
           <TabPanel>
             <Box d="flex" pb="2">
@@ -255,7 +271,7 @@ function MyChats({ fetchAgain }) {
           </TabPanel>
         </TabPanels>
       </Tabs>
-    </Box>
+    </BlurredBox>
   );
 }
 
