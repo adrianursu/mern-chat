@@ -244,7 +244,7 @@ function MyChats({ fetchAgain }) {
               <InputGroup>
                 <InputLeftElement
                   pointerEvents="none"
-                  children={<Search2Icon />}
+                  children={<Search2Icon color="gray.500" />}
                 />
                 <Input
                   placeholder="Search by name or email"
