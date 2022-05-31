@@ -249,6 +249,7 @@ function MyChats({ fetchAgain }) {
                 <Input
                   placeholder="Search by name or email"
                   value={search}
+                  focusBorderColor="grey"
                   onChange={(e) => {
                     handleSearch(e.target.value);
                   }}
