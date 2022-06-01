@@ -21,7 +21,7 @@ function Register() {
     email: "",
     password: "",
     confirmPassword: "",
-    avatar: "",
+    avatar: undefined,
   });
 
   const [show, setShow] = useState({
