@@ -1,7 +1,7 @@
 import React from "react";
 import SingleChat from "./SingleChat";
 import { useChat } from "../Context/ChatProvider";
-import BlurredBox from "./Auth/Theme/BlurredBox";
+import BlurredBox from "./Theme/BlurredBox";
 
 function ChatBox({ fetchAgain, setFetchAgain }) {
   const [state] = useChat();

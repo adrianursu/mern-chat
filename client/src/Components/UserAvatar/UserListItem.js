@@ -1,7 +1,7 @@
 import { Avatar, Box, Text } from "@chakra-ui/react";
 import React from "react";
 import { useChat } from "../../Context/ChatProvider";
-import BlurredBox from "../Auth/Theme/BlurredBox";
+import BlurredBox from "../Theme/BlurredBox";
 
 function UserListItem({ user, handleFunction }) {
   const [state] = useChat();

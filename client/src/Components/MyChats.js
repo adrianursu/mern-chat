@@ -22,7 +22,7 @@ import ChatLoading from "./ChatLoading";
 import { getSender } from "../config/ChatLogics";
 import GroupChatModal from "./miscellaneous/GroupChatModal";
 import UserListItem from "./UserAvatar/UserListItem";
-import BlurredBox from "./Auth/Theme/BlurredBox";
+import BlurredBox from "./Theme/BlurredBox";
 
 function MyChats({ fetchAgain }) {
   const [loggedUser, setLoggedUser] = useState();

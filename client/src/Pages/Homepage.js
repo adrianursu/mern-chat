@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Login from "../Components/Auth/Login";
 import Register from "../Components/Auth/Register";
-import BlurredBox from "../Components/Auth/Theme/BlurredBox";
+import BlurredBox from "../Components/Theme/BlurredBox";
 
 import {
   Container,
