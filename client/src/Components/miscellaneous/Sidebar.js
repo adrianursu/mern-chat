@@ -128,13 +128,23 @@ function Sidebar() {
               bgColor={bgColor}
               _hover={{ bgColor: bgColor }}
               _active={{ bgColor: bgColor }}
+              color="white"
             >
               <Avatar
                 size="sm"
                 cursor="pointer"
                 name={user.name}
                 src={user.avatar}
+                mr="12px"
               />
+              <span
+                style={{
+                  display: "inline-flex",
+                  marginTop: "5px",
+                }}
+              >
+                {user.name}
+              </span>
             </MenuButton>
             <MenuList
               bg="rgba(17, 25, 40, 0.77)"
