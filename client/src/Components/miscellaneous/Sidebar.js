@@ -104,6 +104,9 @@ function Sidebar() {
 
               {notification.map((n) => (
                 <MenuItem
+                  _hover={{ bgColor: bgColor }}
+                  _active={{ bgColor: bgColor }}
+                  _focus={{ bgColor: bgColor }}
                   key={n._id}
                   onClick={() => {
                     dispatch({ type: "SELECTED_CHAT", value: n.chat });
