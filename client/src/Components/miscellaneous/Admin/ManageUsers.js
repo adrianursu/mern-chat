@@ -115,7 +115,6 @@ function ManageUsers() {
           bg="rgba(17, 25, 40, 1)"
           border="1px solid rgba(255, 255, 255, 0.125)"
           backdropFilter="blur(16px) saturate(180%)"
-          WebkitBackdropFilter="blur(16px) saturate(180%)"
         >
           <PopoverArrow bg="red.500" />
           <PopoverCloseButton color="white" />

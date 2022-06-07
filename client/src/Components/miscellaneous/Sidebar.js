@@ -51,7 +51,6 @@ function Sidebar() {
         p="5px 10px 5px 10px"
         border="5px solid rgba(255, 255, 255, 0.125)"
         backdropFilter="blur(16px) saturate(180%)"
-        WebkitBackdropFilter="blur(16px) saturate(180%)"
         bg="rgba(17, 25, 40, 0.37)"
       >
         <Tooltip label="Open Control Panel" hasArrow placement="bottom-end">
@@ -184,7 +183,6 @@ function Sidebar() {
           bg="rgba(17, 25, 40, 0.7)"
           border="1px solid rgba(255, 255, 255, 0.125)"
           backdropFilter="blur(16px) saturate(180%)"
-          WebkitBackdropFilter="blur(16px) saturate(180%)"
         >
           <DrawerHeader
             borderBottom="1px"
