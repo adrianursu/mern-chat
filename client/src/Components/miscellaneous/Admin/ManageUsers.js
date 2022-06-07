@@ -107,7 +107,7 @@ function ManageUsers() {
             _hover={{ background: "red.500" }}
             fontFamily="Inconsolata"
           >
-            Delete from db/Make Admin
+            Manage Users
           </Button>
         </PopoverTrigger>
         <PopoverContent
