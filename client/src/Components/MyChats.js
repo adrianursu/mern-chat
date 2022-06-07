@@ -191,7 +191,7 @@ function MyChats({ fetchAgain }) {
               flexDir="column"
               p={3}
               w="100%"
-              h="100%"
+              h="70vh"
               borderRadius="lg"
               overflowY="hidden"
             >
