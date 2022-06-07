@@ -191,7 +191,7 @@ function MyChats({ fetchAgain }) {
               flexDir="column"
               p={3}
               w="100%"
-              h="70vh"
+              maxH="70vh"
               borderRadius="lg"
               overflowY="hidden"
             >
@@ -254,19 +254,30 @@ function MyChats({ fetchAgain }) {
                 />
               </InputGroup>
             </Box>
-
-            {loading ? (
-              <ChatLoading />
-            ) : (
-              searchResult?.map((user) => (
-                <UserListItem
-                  key={user._id}
-                  user={user}
-                  handleFunction={() => accessChat(user._id)}
-                />
-              ))
-            )}
-            {loadingChat && <Spinner m="auto" d="flex" />}
+            <BlurredBox
+              d="flex"
+              flexDir="column"
+              p={3}
+              w="100%"
+              maxH="70vh"
+              borderRadius="lg"
+              overflowY="hidden"
+            >
+              <Stack overflowY="scroll">
+                {loading ? (
+                  <ChatLoading />
+                ) : (
+                  searchResult?.map((user) => (
+                    <UserListItem
+                      key={user._id}
+                      user={user}
+                      handleFunction={() => accessChat(user._id)}
+                    />
+                  ))
+                )}
+                {loadingChat && <Spinner m="auto" d="flex" />}
+              </Stack>
+            </BlurredBox>
           </TabPanel>
         </TabPanels>
       </Tabs>
