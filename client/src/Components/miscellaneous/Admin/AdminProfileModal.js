@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   IconButton,
   useDisclosure,
@@ -13,11 +13,17 @@ import {
   Image,
   Text,
   Box,
+  FormControl,
+  Input,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 
 function ProfileModal({ user, children, deleteHandler }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [userName, setUserName] = useState();
+  const [renameLoading, setRenameLoading] = useState(false);
+
+  function handleRename() {}
   return (
     <>
       {children ? (
@@ -62,11 +68,27 @@ function ProfileModal({ user, children, deleteHandler }) {
             >
               Email: {user.email}
             </Text>
+            <FormControl d="flex">
+              <Input
+                placeHolder="Change user's name"
+                onChange={(e) => setUserName(e.target.value)}
+              />
+              <Button
+                variant="solid"
+                colorScheme="teal"
+                ml={1}
+                isLoading={renameLoading}
+                onClick={handleRename}
+              >
+                Update
+              </Button>
+            </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Box pr={2}>
+            <Button colorScheme="telegram">Make admin</Button>
+            <Box pr={2} pl={2}>
               <Button colorScheme="red" onClick={deleteHandler}>
-                Delete from application
+                Delete
               </Button>
             </Box>
             <Button onClick={onClose} color="black">
