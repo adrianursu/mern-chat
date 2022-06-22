@@ -17,13 +17,21 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
+import axios from "axios";
 
 function ProfileModal({ user, children, deleteHandler }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userName, setUserName] = useState();
   const [renameLoading, setRenameLoading] = useState(false);
 
-  function handleRename() {}
+  function handleRename(_id) {
+    const newName = userName;
+
+    axios.put("http://localhost:3000/api/user/update", {
+      newName: newName,
+      _id: _id,
+    });
+  }
   return (
     <>
       {children ? (
@@ -78,7 +86,9 @@ function ProfileModal({ user, children, deleteHandler }) {
                 colorScheme="teal"
                 ml={1}
                 isLoading={renameLoading}
-                onClick={handleRename}
+                onClick={() => {
+                  handleRename(user._id);
+                }}
               >
                 Update
               </Button>

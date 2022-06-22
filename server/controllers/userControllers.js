@@ -97,4 +97,26 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { registerUser, authUser, getAllUsers, deleteUser };
+const updateUser = asyncHandler(async (req, res) => {
+  const newName = req.body.newName;
+  const _id = req.body._id;
+
+  try {
+    await User.findById(_id, (error, userToUpdate) => {
+      userToUpdate.name = newName;
+      userToUpdate.save();
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.send("updated");
+});
+
+module.exports = {
+  registerUser,
+  authUser,
+  getAllUsers,
+  deleteUser,
+  updateUser,
+};
