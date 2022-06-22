@@ -81,20 +81,9 @@ const getAllUsers = asyncHandler(async (req, res) => {
 });
 
 const deleteUser = asyncHandler(async (req, res) => {
-  const _id = req.params.userId;
-  try {
-    if (!user) return res.sendStatus(404);
-
-    if (user.isAdmin)
-      return res.send(user.name + " is admin, you cannot delete an admin");
-
-    const user = await User.findByIdAndDelete(_id);
-
-    return res.send(user.name + " with id: " + user._id + " has been deleted!");
-  } catch (error) {
-    res.status(400);
-    throw new Error(error.message);
-  }
+  const id = req.params._id;
+  await User.findByIdAndDelete(id).exec();
+  res.send("user deleted");
 });
 
 const updateUser = asyncHandler(async (req, res) => {

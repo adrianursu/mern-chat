@@ -15,22 +15,93 @@ import {
   Box,
   FormControl,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import { ViewIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
-function ProfileModal({ user, children, deleteHandler }) {
+function ProfileModal({ user, children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userName, setUserName] = useState();
-  const [renameLoading, setRenameLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
-  function handleRename(_id) {
+  function renameHandler(_id) {
     const newName = userName;
 
-    axios.put("http://localhost:3000/api/user/update", {
-      newName: newName,
-      _id: _id,
-    });
+    try {
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios.put(
+        "http://localhost:3000/api/user/update",
+        {
+          newName: newName,
+          _id: _id,
+        },
+        config
+      );
+
+      toast({
+        title: "Success!",
+        description: "User's name has been successfuly updated",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to update user's name",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+
+      setLoading(false);
+    }
+  }
+
+  function deleteHandler(_id) {
+    try {
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+
+      axios.delete(`http://localhost:3000/api/user/delete/${_id}`, config);
+
+      toast({
+        title: "Success!",
+        description: "User has been deleted successfuly!",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to delete user",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+
+      setLoading(false);
+    }
   }
   return (
     <>
@@ -85,9 +156,9 @@ function ProfileModal({ user, children, deleteHandler }) {
                 variant="solid"
                 colorScheme="teal"
                 ml={1}
-                isLoading={renameLoading}
+                isLoading={loading}
                 onClick={() => {
-                  handleRename(user._id);
+                  renameHandler(user._id);
                 }}
               >
                 Update
@@ -97,7 +168,12 @@ function ProfileModal({ user, children, deleteHandler }) {
           <ModalFooter>
             <Button colorScheme="telegram">Make admin</Button>
             <Box pr={2} pl={2}>
-              <Button colorScheme="red" onClick={deleteHandler}>
+              <Button
+                colorScheme="red"
+                onClick={() => {
+                  deleteHandler(user._id);
+                }}
+              >
                 Delete
               </Button>
             </Box>

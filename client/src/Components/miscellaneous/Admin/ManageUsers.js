@@ -33,33 +33,6 @@ function ManageUsers() {
 
   const toast = useToast();
 
-  async function deleteHandler() {
-    try {
-      setLoading(true);
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      };
-
-      // await axios.delete(`/api/user/delete/${}`, config); TO DO
-
-      setLoading(false);
-    } catch (error) {
-      toast({
-        title: "Error Occured!",
-        description: "Failed to delete user",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom-right",
-      });
-
-      setLoading(false);
-    }
-  }
-
   async function handleSearch(query) {
     setSearch(query);
     if (!query) {
@@ -148,7 +121,7 @@ function ManageUsers() {
               <ChatLoading />
             ) : (
               searchResult?.map((user) => (
-                <AdminProfileModal user={user} deleteHandler={deleteHandler}>
+                <AdminProfileModal user={user}>
                   <UserListItem key={user._id} user={user} />
                 </AdminProfileModal>
               ))
