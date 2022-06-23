@@ -9,13 +9,14 @@ const {
 } = require("../controllers/userControllers");
 
 const { protect } = require("../middlewares/authMiddleware");
+const { isAdmin } = require("../middlewares/isAdminMiddleware");
 
 const router = express.Router();
 
 router.route("/").post(registerUser).get(protect, getAllUsers);
 router.route("/login").post(authUser);
-router.route("/delete/:_id").delete(deleteUser);
-router.route("/update").put(updateUser);
-router.route("/makeAdmin").put(makeAdmin);
+router.route("/delete/:_id").delete([protect, isAdmin], deleteUser);
+router.route("/update").put([protect, isAdmin], updateUser);
+router.route("/makeAdmin").put([protect, isAdmin], makeAdmin);
 
 module.exports = router;
