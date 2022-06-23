@@ -26,6 +26,44 @@ function ProfileModal({ user, children }) {
   const [loading, setLoading] = useState(false);
   const toast = useToast();
 
+  function makeAdminHandler(_id) {
+    try {
+      setLoading(true);
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      axios.put(
+        "http://localhost:3000/api/user/makeAdmin",
+        { _id: _id },
+        config
+      );
+
+      toast({
+        title: "Success!",
+        description: "User's role has been modified successfuly",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+      setLoading(false);
+    } catch (error) {
+      toast({
+        title: "Error Occured!",
+        description: "Failed to update user's role",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+        position: "bottom-right",
+      });
+
+      setLoading(false);
+    }
+  }
+
   function renameHandler(_id) {
     const newName = userName;
 
@@ -166,7 +204,14 @@ function ProfileModal({ user, children }) {
             </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="telegram">Make admin</Button>
+            <Button
+              colorScheme="telegram"
+              onClick={() => {
+                makeAdminHandler(user._id);
+              }}
+            >
+              Make admin
+            </Button>
             <Box pr={2} pl={2}>
               <Button
                 colorScheme="red"
