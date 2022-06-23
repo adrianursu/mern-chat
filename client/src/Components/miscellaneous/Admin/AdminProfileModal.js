@@ -20,11 +20,14 @@ import {
 import { ViewIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
-function ProfileModal({ user, children }) {
+function AdminProfileModal({ user, children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [userName, setUserName] = useState();
   const [loading, setLoading] = useState(false);
   const toast = useToast();
+
+  const getInfo = localStorage.getItem("userInfo");
+  var parsedInfo = JSON.parse(getInfo);
 
   function makeAdminHandler(_id) {
     try {
@@ -32,7 +35,7 @@ function ProfileModal({ user, children }) {
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${parsedInfo.token}`,
         },
       };
       axios.put(
@@ -72,7 +75,7 @@ function ProfileModal({ user, children }) {
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${parsedInfo.token}`,
         },
       };
       axios.put(
@@ -113,7 +116,7 @@ function ProfileModal({ user, children }) {
 
       const config = {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${parsedInfo.token}`,
         },
       };
 
@@ -232,4 +235,4 @@ function ProfileModal({ user, children }) {
   );
 }
 
-export default ProfileModal;
+export default AdminProfileModal;
