@@ -102,10 +102,26 @@ const updateUser = asyncHandler(async (req, res) => {
   res.send("updated");
 });
 
+const makeAdmin = asyncHandler(async (req, res) => {
+  const _id = req.body._id;
+
+  try {
+    await User.findById(_id, (error, userToUpdate) => {
+      userToUpdate.isAdmin = true;
+      userToUpdate.save();
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+  res.send("updated admin");
+});
+
 module.exports = {
   registerUser,
   authUser,
   getAllUsers,
   deleteUser,
   updateUser,
+  makeAdmin,
 };
