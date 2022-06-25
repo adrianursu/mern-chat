@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import {
   IconButton,
   useDisclosure,
@@ -96,6 +96,8 @@ function AdminProfileModal({ user, children }) {
         position: "bottom-right",
       });
       setLoading(false);
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -131,6 +133,8 @@ function AdminProfileModal({ user, children }) {
         position: "bottom-right",
       });
       setLoading(false);
+      // eslint-disable-next-line no-restricted-globals
+      location.reload();
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -144,6 +148,7 @@ function AdminProfileModal({ user, children }) {
       setLoading(false);
     }
   }
+
   return (
     <>
       {children ? (
@@ -167,7 +172,7 @@ function AdminProfileModal({ user, children }) {
             d="flex"
             justifyContent="center"
           >
-            {user.name}
+            {userName ?? user.name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody

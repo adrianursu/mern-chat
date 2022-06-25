@@ -49,7 +49,7 @@ function ProfileModal({ user, children }) {
             d="flex"
             justifyContent="center"
           >
-            {user.name}
+            {user?.name}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody
@@ -61,14 +61,14 @@ function ProfileModal({ user, children }) {
             <Image
               borderRadius="full"
               boxSize="150px"
-              src={user.avatar}
-              alt={user.name}
+              src={user?.avatar}
+              alt={user?.name}
             />
             <Text
               fontSize={{ base: "28px", md: "30px" }}
               fontFamily="Inconsolata"
             >
-              Email: {user.email}
+              Email: {user?.email}
             </Text>
           </ModalBody>
           <ModalFooter>
