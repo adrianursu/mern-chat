@@ -38,11 +38,7 @@ function AdminProfileModal({ user, children }) {
           Authorization: `Bearer ${parsedInfo.token}`,
         },
       };
-      axios.put(
-        "http://localhost:3000/api/user/makeAdmin",
-        { _id: _id },
-        config
-      );
+      axios.put("/api/user/makeAdmin", { _id: _id }, config);
 
       toast({
         title: "Success!",
@@ -79,7 +75,7 @@ function AdminProfileModal({ user, children }) {
         },
       };
       axios.put(
-        "http://localhost:3000/api/user/update",
+        "/api/user/update",
         {
           newName: newName,
           _id: _id,
@@ -122,7 +118,7 @@ function AdminProfileModal({ user, children }) {
         },
       };
 
-      axios.delete(`http://localhost:3000/api/user/delete/${_id}`, config);
+      axios.delete(`/api/user/delete/${_id}`, config);
 
       toast({
         title: "Success!",
