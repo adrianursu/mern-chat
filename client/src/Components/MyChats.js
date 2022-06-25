@@ -135,6 +135,8 @@ function MyChats({ fetchAgain }) {
     fetchChats();
   }, [fetchAgain]);
 
+  console.log(chats);
+
   return (
     <BlurredBox
       d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
@@ -197,40 +199,43 @@ function MyChats({ fetchAgain }) {
             >
               {chats ? (
                 <Stack overflowY="scroll">
-                  {chats.map((chat) => (
-                    <Box
-                      onClick={() => {
-                        dispatch({ type: "SELECTED_CHAT", value: chat });
-                      }}
-                      cursor="pointer"
-                      bg={
-                        selectedChat === chat
-                          ? bgColor
-                          : "rgba(17, 25, 40, 0.37)"
-                      }
-                      color={selectedChat === chat ? "white" : "gray.400"}
-                      px={3}
-                      py={3}
-                      borderRadius="lg"
-                      key={chat._id}
-                      _hover={{ bgColor: bgColor, color: "gray.100" }}
-                    >
-                      <Text>
-                        {!chat.isGroupChat
-                          ? getSender(loggedUser, chat.users)
-                          : chat.chatName}
-                      </Text>
-                      {chat.latestMessage && (
-                        <Text fontSize="xs">
-                          <b>{chat.latestMessage.sender.name}: </b>
-                          {chat.latestMessage.content.length > 50
-                            ? chat.latestMessage.content.substring(0, 51) +
-                              "..."
-                            : chat.latestMessage.content}
-                        </Text>
-                      )}
-                    </Box>
-                  ))}
+                  {chats.map(
+                    (chat) =>
+                      chat.users.length >= 2 && (
+                        <Box
+                          onClick={() => {
+                            dispatch({ type: "SELECTED_CHAT", value: chat });
+                          }}
+                          cursor="pointer"
+                          bg={
+                            selectedChat === chat
+                              ? bgColor
+                              : "rgba(17, 25, 40, 0.37)"
+                          }
+                          color={selectedChat === chat ? "white" : "gray.400"}
+                          px={3}
+                          py={3}
+                          borderRadius="lg"
+                          key={chat._id}
+                          _hover={{ bgColor: bgColor, color: "gray.100" }}
+                        >
+                          <Text>
+                            {!chat.isGroupChat
+                              ? getSender(loggedUser, chat.users)
+                              : chat.chatName}
+                          </Text>
+                          {chat.latestMessage && (
+                            <Text fontSize="xs">
+                              <b>{chat.latestMessage.sender.name}: </b>
+                              {chat.latestMessage.content.length > 50
+                                ? chat.latestMessage.content.substring(0, 51) +
+                                  "..."
+                                : chat.latestMessage.content}
+                            </Text>
+                          )}
+                        </Box>
+                      )
+                  )}
                 </Stack>
               ) : (
                 <ChatLoading />
