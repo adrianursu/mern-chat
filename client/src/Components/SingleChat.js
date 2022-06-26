@@ -23,7 +23,7 @@ import Lottie from "react-lottie";
 import animationData from "../animation/typing.json";
 import BlurredBox from "./Theme/BlurredBox";
 
-const ENDPOINT = "https://my-chat-bachelor.herokuapp.com/";
+const ENDPOINT = "http://localhost:5000";
 var socket, selectedChatCompare;
 
 function SingleChat({ fetchAgain, setFetchAgain }) {
