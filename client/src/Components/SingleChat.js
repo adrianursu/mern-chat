@@ -254,7 +254,7 @@ function SingleChat({ fetchAgain, setFetchAgain }) {
               )}
               <InputGroup>
                 <Input
-                  placeholder="Enter a message"
+                  placeholder="Aa"
                   onChange={typingHandler}
                   value={newMessage}
                   focusBorderColor="grey"
